@@ -24,6 +24,13 @@
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
 
+        <!-- MyBatis-Plus 启动器：必须加在运行入口模块，才能让 BaseMapper.selectList 等通用方法真正注册到 MyBatis 中 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.5</version>
+        </dependency>
+
         <!-- swagger3-->
         <dependency>
             <groupId>io.springfox</groupId>

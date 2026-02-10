@@ -23,6 +23,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- MyBatis-Plus 启动器：框架层使用 MybatisSqlSessionFactoryBean 需要引入 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.5</version>
+        </dependency>
+
         <!-- SpringBoot 拦截器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

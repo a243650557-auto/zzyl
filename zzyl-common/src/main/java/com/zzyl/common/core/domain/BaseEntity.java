@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,6 +20,7 @@ public class BaseEntity implements Serializable
 
     /** 搜索值 */
     @JsonIgnore
+    @TableField(exist = false)  // 告诉 MyBatis-Plus：这个字段在数据库里不存在，不要查询它
     private String searchValue;
 
     /** 创建者 */
@@ -40,6 +42,7 @@ public class BaseEntity implements Serializable
 
     /** 请求参数 */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @TableField(exist = false)  // 告诉 MyBatis-Plus：这个字段在数据库里不存在，不要查询它
     private Map<String, Object> params;
 
     public String getSearchValue()

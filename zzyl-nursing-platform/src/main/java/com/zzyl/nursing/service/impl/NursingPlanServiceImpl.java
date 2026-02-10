@@ -1,6 +1,8 @@
 package com.zzyl.nursing.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zzyl.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,8 @@ public class NursingPlanServiceImpl implements INursingPlanService
     @Override
     public NursingPlan selectNursingPlanById(Long id)
     {
-        return nursingPlanMapper.selectNursingPlanById(id);
+        // MyBatis-Plus: 自动生成 SQL: SELECT * FROM nursing_plan WHERE id = ?
+        return nursingPlanMapper.selectById(id);
     }
 
     /**
@@ -41,7 +44,15 @@ public class NursingPlanServiceImpl implements INursingPlanService
     @Override
     public List<NursingPlan> selectNursingPlanList(NursingPlan nursingPlan)
     {
-        return nursingPlanMapper.selectNursingPlanList(nursingPlan);
+        // MyBatis-Plus: 用 LambdaQueryWrapper 动态拼接 WHERE 条件
+        LambdaQueryWrapper<NursingPlan> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(nursingPlan.getId() != null, NursingPlan::getId, nursingPlan.getId())
+               .like(nursingPlan.getPlanName() != null && !nursingPlan.getPlanName().isEmpty(),
+                     NursingPlan::getPlanName, nursingPlan.getPlanName())
+               .eq(nursingPlan.getStatus() != null, NursingPlan::getStatus, nursingPlan.getStatus())
+               .orderByAsc(nursingPlan.getSortNo() != null, NursingPlan::getSortNo);
+        // 自动生成 SQL: SELECT * FROM nursing_plan WHERE plan_name LIKE ? AND status = ? ORDER BY sort_no ASC
+        return nursingPlanMapper.selectList(wrapper);
     }
 
     /**
@@ -54,7 +65,8 @@ public class NursingPlanServiceImpl implements INursingPlanService
     public int insertNursingPlan(NursingPlan nursingPlan)
     {
         nursingPlan.setCreateTime(DateUtils.getNowDate());
-        return nursingPlanMapper.insertNursingPlan(nursingPlan);
+        // MyBatis-Plus: 自动生成 SQL: INSERT INTO nursing_plan (plan_name, status, sort_no, ...) VALUES (?, ?, ?, ...)
+        return nursingPlanMapper.insert(nursingPlan);
     }
 
     /**
@@ -67,7 +79,8 @@ public class NursingPlanServiceImpl implements INursingPlanService
     public int updateNursingPlan(NursingPlan nursingPlan)
     {
         nursingPlan.setUpdateTime(DateUtils.getNowDate());
-        return nursingPlanMapper.updateNursingPlan(nursingPlan);
+        // MyBatis-Plus: 自动生成 SQL: UPDATE nursing_plan SET plan_name = ?, status = ?, ... WHERE id = ?
+        return nursingPlanMapper.updateById(nursingPlan);
     }
 
     /**
@@ -79,7 +92,8 @@ public class NursingPlanServiceImpl implements INursingPlanService
     @Override
     public int deleteNursingPlanByIds(Long[] ids)
     {
-        return nursingPlanMapper.deleteNursingPlanByIds(ids);
+        // MyBatis-Plus: 自动生成 SQL: DELETE FROM nursing_plan WHERE id IN (?, ?, ...)
+        return nursingPlanMapper.deleteBatchIds(Arrays.asList(ids));
     }
 
     /**
@@ -91,6 +105,7 @@ public class NursingPlanServiceImpl implements INursingPlanService
     @Override
     public int deleteNursingPlanById(Long id)
     {
-        return nursingPlanMapper.deleteNursingPlanById(id);
+        // MyBatis-Plus: 自动生成 SQL: DELETE FROM nursing_plan WHERE id = ?
+        return nursingPlanMapper.deleteById(id);
     }
 }

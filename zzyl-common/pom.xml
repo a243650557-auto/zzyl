@@ -119,6 +119,26 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
+        <!-- Lombok：简化实体/VO 等 Java 类的 getter/setter 等代码 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+          <!-- Swagger 注解依赖，用于 @Api / @ApiOperation 等 -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!-- MyBatis-Plus 核心依赖：BaseEntity 需要使用 @TableField 注解 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>3.5.5</version>
+        </dependency>
+
     </dependencies>
 
 </project>

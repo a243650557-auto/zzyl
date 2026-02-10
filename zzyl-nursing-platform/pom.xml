@@ -22,6 +22,19 @@
             <groupId>com.zzyl</groupId>
             <artifactId>zzyl-common</artifactId>
         </dependency>
+
+        <!-- Lombok：护理业务模块中可以直接使用 @Data 等注解 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- MyBatis-Plus 启动器：类似前端里的 axios 封装 + 请求拦截器，一次性把常用 CRUD 能力装进来 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.5</version>
+        </dependency>
     </dependencies>
 
 </project>
