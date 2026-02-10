@@ -3,7 +3,6 @@ package com.zzyl.nursing.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.zzyl.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zzyl.nursing.mapper.NursingPlanMapper;
@@ -64,8 +63,8 @@ public class NursingPlanServiceImpl implements INursingPlanService
     @Override
     public int insertNursingPlan(NursingPlan nursingPlan)
     {
-        nursingPlan.setCreateTime(DateUtils.getNowDate());
         // MyBatis-Plus: 自动生成 SQL: INSERT INTO nursing_plan (plan_name, status, sort_no, ...) VALUES (?, ?, ?, ...)
+        // 注意：createTime、createBy、updateTime、updateBy 会由 MyMetaObjectHandler 自动填充，无需手动设置
         return nursingPlanMapper.insert(nursingPlan);
     }
 
@@ -78,8 +77,8 @@ public class NursingPlanServiceImpl implements INursingPlanService
     @Override
     public int updateNursingPlan(NursingPlan nursingPlan)
     {
-        nursingPlan.setUpdateTime(DateUtils.getNowDate());
         // MyBatis-Plus: 自动生成 SQL: UPDATE nursing_plan SET plan_name = ?, status = ?, ... WHERE id = ?
+        // 注意：updateTime、updateBy 会由 MyMetaObjectHandler 自动填充，无需手动设置
         return nursingPlanMapper.updateById(nursingPlan);
     }
 

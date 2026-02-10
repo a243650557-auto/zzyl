@@ -2,6 +2,10 @@ package com.zzyl.nursing.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.zzyl.common.annotation.Excel;
 import com.zzyl.common.core.domain.BaseEntity;
 
@@ -11,18 +15,22 @@ import com.zzyl.common.core.domain.BaseEntity;
  * @author ruoyi
  * @date 2026-02-09
  */
+@TableName("nursing_plan")  // 指定数据库表名
 public class NursingPlan extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 编号 */
+    @TableId(type = IdType.AUTO)  // 主键自增策略
     private Long id;
 
     /** 排序号 */
+    @TableField("sort_no")  // Java 字段 sortNo 映射到数据库列 sort_no
     private Integer sortNo;
 
     /** 名称 */
     @Excel(name = "名称")
+    @TableField("plan_name")  // Java 字段 planName 映射到数据库列 plan_name
     private String planName;
 
     /** 状态 0禁用 1启用 */

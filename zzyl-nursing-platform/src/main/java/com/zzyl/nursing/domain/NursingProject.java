@@ -1,5 +1,9 @@
 package com.zzyl.nursing.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.zzyl.common.annotation.Excel;
 import com.zzyl.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,11 +17,13 @@ import java.math.BigDecimal;
  * @author ruoyi
  * @date 2026-02-09
  */
+@TableName("nursing_project")  // 指定数据库表名
 public class NursingProject extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 编号 */
+    @TableId(type = IdType.AUTO)  // 主键自增策略
     private Long id;
 
     /** 名称 */
@@ -26,10 +32,12 @@ public class NursingProject extends BaseEntity
 
     /** 排序号 */
     @Excel(name = "排序号")
+    @TableField("order_no")  // Java 字段 orderNo 映射到数据库列 order_no
     private Integer orderNo;
 
     /** 单位 */
     @Excel(name = "单位")
+    @TableField("unit")  // 明确指定数据库列名
     private String unit;
 
     /** 价格 */
@@ -42,6 +50,7 @@ public class NursingProject extends BaseEntity
 
     /** 护理要求 */
     @Excel(name = "护理要求")
+    @TableField("nursing_requirement")  // Java 字段 nursingRequirement 映射到数据库列 nursing_requirement
     private String nursingRequirement;
 
     /** 状态（0：禁用，1：启用） */

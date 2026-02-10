@@ -3,7 +3,6 @@ package com.zzyl.nursing.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.zzyl.common.utils.DateUtils;
 import com.zzyl.nursing.domain.NursingProject;
 import com.zzyl.nursing.mapper.NursingProjectMapper;
 import com.zzyl.nursing.service.INursingProjectService;
@@ -64,8 +63,8 @@ public class NursingProjectServiceImpl implements INursingProjectService
     @Override
     public int insertNursingProject(NursingProject nursingProject)
     {
-        nursingProject.setCreateTime(DateUtils.getNowDate());
         // MyBatis-Plus: 自动生成 SQL: INSERT INTO nursing_project (name, order_no, unit, price, ...) VALUES (?, ?, ?, ?, ...)
+        // 注意：createTime、createBy、updateTime、updateBy 会由 MyMetaObjectHandler 自动填充，无需手动设置
         return nursingProjectMapper.insert(nursingProject);
     }
 
@@ -78,8 +77,8 @@ public class NursingProjectServiceImpl implements INursingProjectService
     @Override
     public int updateNursingProject(NursingProject nursingProject)
     {
-        nursingProject.setUpdateTime(DateUtils.getNowDate());
         // MyBatis-Plus: 自动生成 SQL: UPDATE nursing_project SET name = ?, price = ?, ... WHERE id = ?
+        // 注意：updateTime、updateBy 会由 MyMetaObjectHandler 自动填充，无需手动设置
         return nursingProjectMapper.updateById(nursingProject);
     }
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,17 +25,21 @@ public class BaseEntity implements Serializable
     private String searchValue;
 
     /** 创建者 */
+    @TableField(fill = FieldFill.INSERT)  // 插入时自动填充当前登录用户名
     private String createBy;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT)  // 插入时自动填充当前时间
     private Date createTime;
 
     /** 更新者 */
+    @TableField(fill = FieldFill.INSERT_UPDATE)  // 插入和更新时都自动填充当前登录用户名
     private String updateBy;
 
     /** 更新时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT_UPDATE)  // 插入和更新时都自动填充当前时间
     private Date updateTime;
 
     /** 备注 */

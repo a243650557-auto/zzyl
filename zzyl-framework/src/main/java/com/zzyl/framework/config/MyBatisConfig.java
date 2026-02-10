@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.util.ClassUtils;
 import com.zzyl.common.utils.StringUtils;
+import com.zzyl.framework.config.MyMetaObjectHandler;
 
 /**
  * Mybatis支持*匹配扫描包
@@ -113,8 +115,20 @@ public class MyBatisConfig
         return resources.toArray(new Resource[resources.size()]);
     }
 
+    /**
+     * 显式定义 MyBatis-Plus 的全局配置，并注册自定义的 MetaObjectHandler
+     */
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception
+    public GlobalConfig globalConfig(MyMetaObjectHandler myMetaObjectHandler)
+    {
+        GlobalConfig globalConfig = new GlobalConfig();
+        // 注册自动填充处理器
+        globalConfig.setMetaObjectHandler(myMetaObjectHandler);
+        return globalConfig;
+    }
+
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, GlobalConfig globalConfig) throws Exception
     {
         String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
         String mapperLocations = env.getProperty("mybatis.mapperLocations");
@@ -129,6 +143,8 @@ public class MyBatisConfig
         sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
         sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
         sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
+        // 关键：把 MyBatis-Plus 的 GlobalConfig（包含 MetaObjectHandler）挂到当前 SqlSessionFactory
+        sessionFactory.setGlobalConfig(globalConfig);
         return sessionFactory.getObject();
     }
 }

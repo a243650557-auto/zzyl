@@ -3,7 +3,6 @@ package com.zzyl.nursing.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.zzyl.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zzyl.nursing.mapper.NursingLevelMapper;
@@ -68,8 +67,8 @@ public class NursingLevelServiceImpl implements INursingLevelService
     @Override
     public int insertNursingLevel(NursingLevel nursingLevel)
     {
-        nursingLevel.setCreateTime(DateUtils.getNowDate());
         // MyBatis-Plus: 自动生成 SQL: INSERT INTO nursing_level (name, plan_id, fee, status, ...) VALUES (?, ?, ?, ?, ...)
+        // 注意：createTime、createBy、updateTime、updateBy 会由 MyMetaObjectHandler 自动填充，无需手动设置
         return nursingLevelMapper.insert(nursingLevel);
     }
 
@@ -82,8 +81,8 @@ public class NursingLevelServiceImpl implements INursingLevelService
     @Override
     public int updateNursingLevel(NursingLevel nursingLevel)
     {
-        nursingLevel.setUpdateTime(DateUtils.getNowDate());
         // MyBatis-Plus: 自动生成 SQL: UPDATE nursing_level SET name = ?, plan_id = ?, ... WHERE id = ?
+        // 注意：updateTime、updateBy 会由 MyMetaObjectHandler 自动填充，无需手动设置
         return nursingLevelMapper.updateById(nursingLevel);
     }
 
